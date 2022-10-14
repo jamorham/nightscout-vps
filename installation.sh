@@ -32,6 +32,7 @@ sudo apt-get -y install net-tools
 sudo apt-get -y install build-essential
 sudo apt-get -y install mongodb-server
 sudo apt-get -y install jq
+sudo apt-get -y install dialog
 
 echo -e "use Nightscout\ndb.createUser({user: \"username\", pwd: \"password\", roles:[\"readWrite\"]})\nquit()" | mongo
 
