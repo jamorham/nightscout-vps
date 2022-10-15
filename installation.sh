@@ -33,7 +33,9 @@ sudo apt-get -y install build-essential
 sudo apt-get -y install mongodb-server
 sudo apt-get -y install jq
 
+# Create mongo user and admin.
 echo -e "use Nightscout\ndb.createUser({user: \"username\", pwd: \"password\", roles:[\"readWrite\"]})\nquit()" | mongo
+echo -e "use admin\ndb.createUser({ user: \"mongoadmin\" , pwd: \"mongoadmin\", roles: [\"userAdminAnyDatabase\", \"dbAdminAnyDatabase\", \"readWriteAnyDatabase\"]})\nquit()" | mongo
 
 
 sudo apt-get install -y  git python gcc g++ make
@@ -102,7 +104,7 @@ echo "Nginx config already patched"
 fi
 
 sudo service nginx start
-sudo certbot --nginx -d "$hostname"
+sudo certbot --nginx -d "$hostname" --redirect
 
 
 sudo systemctl daemon-reload
