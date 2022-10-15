@@ -7,7 +7,7 @@ echo
 
 if [ "`id -u`" != "0" ]
 then
-echo "Script needs root - use sudo update_nightscout.sh"
+echo "Script needs root - use sudo bash update_nightscout.sh"
 echo "Cannot continue.."
 exit 5
 fi
