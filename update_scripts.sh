@@ -4,18 +4,10 @@ echo
 echo "Fetch the latest scripts from GitHub"
 echo
 
-
-if [ "`id -u`" != "0" ]
-then
-echo "Script needs root - use sudo bash update_scripts.sh"
-echo "Cannot continue.."
-exit 5
-fi
-
 cd /tmp
 
 if [ -s ./nightscout-vps ] # Main
-# if [ -s ./cgm-remote-monitor ] # Navid's
+#if [ -s ./cgm-remote-monitor ] # Navid's
 
 then
 
@@ -31,7 +23,7 @@ cd nightscout-vps # Main
 #cd cgm-remote-monitor # Navid's
 
 sudo git checkout vps-1 # Main
-#sudo git checkout Navid_2022_10_14c # Navid's
+#sudo git checkout Navid_2022_10_14c_Test # Navid's
 
 sudo git pull
 sudo chmod 755 *.sh # Change premissions to allow execution by all.
