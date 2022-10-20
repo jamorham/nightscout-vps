@@ -14,9 +14,10 @@ Press Enter to execute the highlighted option.\n\n" 16 50 9\
  "2" "noip.com association"\
  "3" "Transfer database from another server"\
  "4" "Update/Customize Nightscout"\
- "5" "Status"\
- "6" "Reboot server"\
- "7" "Terminal" 3>&1 1>&2 2>&3)
+ "5" "Update scripts"\
+ "6" "Status"\
+ "7" "Reboot server"\
+ "8" "Terminal" 3>&1 1>&2 2>&3)
 
 case $Choice in
 1)
@@ -40,11 +41,15 @@ sudo /xDrip/scripts/update_nightscout.sh
 ;;
 
 5)
+/xDrip/scripts/update_scripts.sh
+;;
+
+6)
 clear
 /xDrip/scripts/Status.sh
 ;;
 
-6)
+7)
 dialog --yesno "Are you sure you want to reboot the server?\n
 If you do, all unsaved open files will close without saving.\n"  8 50
 response=$?
@@ -56,7 +61,7 @@ sudo reboot
 fi
 ;;
 
-7)
+8)
 # Clear before exiting. 
 clear
 exit
