@@ -8,8 +8,8 @@ while [ true ]
 do
 clear #  Clear the screen before placing the next dialog on.
 
-Choice=$(dialog --nocancel --menu "Use the arrow keys to move the cursor.\n\
-Press Enter to execute the highlighted option.\n\n" 17 50 9\
+Choice=$(dialog --nocancel --nook --menu "Use the arrow keys to move the cursor.\n\
+Press Enter to execute the highlighted option.\n\n" 18 50 11\
  "1" "Initial Nightscout install"\
  "2" "noip.com association"\
  "3" "Edit Nightscout Variables"\
@@ -18,7 +18,7 @@ Press Enter to execute the highlighted option.\n\n" 17 50 9\
  "6" "Update scripts"\
  "7" "Status"\
  "8" "Reboot server"\
- "9" "Terminal" 3>&1 1>&2 2>&3)
+ "9" "Exit" 3>&1 1>&2 2>&3)
 
 case $Choice in
 1)
@@ -68,7 +68,14 @@ fi
 ;;
 
 9)
-# Clear before exiting. 
+cat > /tmp/menu_exit_note << EOF
+You will now exit to the shell (terminal).
+To return to the menu, enter menu in the terminal.
+
+EOF
+cd /tmp
+clear
+dialog --textbox menu_exit_note 7 54
 clear
 exit
 ;;
