@@ -4,18 +4,6 @@ echo
 echo "Install Nightscout again, from the official repository or from a fork"
 echo
 
-
-if [ "`id -u`" != "0" ]
-then
-echo "Script needs root - execute bootstrap.sh or use sudo bash installation.sh"
-echo "Cannot continue.."
-exit 5
-fi
-
-echo "Installing dialog"
-sudo apt-get update
-sudo apt-get -y install dialog
-
 # Setting the defaults to correspond to the official Nightscout repository. 
 user="nightscout"
 repo="cgm-remote-monitor"
@@ -126,4 +114,3 @@ done
 EOF
 
 sudo reboot # Reboot so that Nightscout starts.
-
