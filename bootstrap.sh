@@ -12,23 +12,16 @@ sudo apt-get -y install wget bash
 sudo apt-get -y install dialog
 sudo apt-get install -y  git python gcc g++ make
 
-cat > /tmp/bootstrap_note << EOF
-Shortly after you proceed, the server  will
-automatically reboot and an expected error
-message will appear.
-Please wait 30 seconds before clicking on
-"Retry" to reconnect.
-
-After this, every time you open a terminal,
-a menu will offer all the available options.
-
-To proceed, press Enter.
-
-EOF
-
 cd /tmp
 clear
-dialog --textbox bootstrap_note 15 53
+dialog --msgbox "Shortly after you proceed, the server  will\n\
+automatically reboot and an expected error\n\
+message will appear.\n\
+Please wait 30 seconds before clicking on\n\
+"Retry" to reconnect.\n\n\
+After this, every time you open a terminal,\n\
+a menu will offer all the available options.\n\n\
+To proceed, press Enter." 15 53
 clear
 
 cd /
@@ -76,3 +69,4 @@ EOF
 
 # Reboot
 sudo reboot
+ 
