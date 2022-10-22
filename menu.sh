@@ -6,43 +6,40 @@ echo
 
 while :
 do
-clear #  Clear the screen before placing the next dialog on.
 
 Choice=$(dialog --nocancel --nook --menu "Use the arrow keys to move the cursor.\n\
-Press Enter to execute the highlighted option.\n\n" 18 50 11\
+Press Enter to execute the highlighted option.\n\n" 20 50 11\
  "1" "Initial Nightscout install"\
  "2" "noip.com association"\
  "3" "Edit Nightscout Variables"\
  "4" "Transfer database from another server"\
  "5" "Update/Customize Nightscout"\
  "6" "Update scripts"\
- "7" "Status"\
- "8" "Reboot server"\
- "9" "Exit" 3>&1 1>&2 2>&3)
+ "7" "Backup MongoDB"\
+ "8" "Restore MongoDB backup"\
+ "9" "Status"\
+ "10" "Reboot server"\
+ "11" "Exit" 3>&1 1>&2 2>&3)
 
 case $Choice in
+
 1)
-clear
 sudo /xDrip/scripts/NS_Install.sh
 ;;
 
 2)
-clear
 sudo /xDrip/scripts/NS_Install2.sh
 ;;
 
 3)
-clear
 /xDrip/scripts/variables.sh
 ;;
 
 4)
-clear
 sudo /xDrip/scripts/clone_nightscout.sh
 ;;
 
 5)
-clear
 sudo /xDrip/scripts/update_nightscout.sh
 ;;
 
@@ -51,11 +48,18 @@ sudo /xDrip/scripts/update_nightscout.sh
 ;;
 
 7)
-clear
-/xDrip/scripts/Status.sh
+/xDrip/scripts/backupmongo.sh
 ;;
 
 8)
+/xDrip/scripts/restoremongo.sh
+;;
+
+9)
+/xDrip/scripts/Status.sh
+;;
+
+10)
 dialog --yesno "Are you sure you want to reboot the server?\n
 If you do, all unsaved open files will close without saving.\n"  8 50
 response=$?
@@ -67,15 +71,11 @@ sudo reboot
 fi
 ;;
 
-9)
-cat > /tmp/menu_exit_note << EOF
-You will now exit to the shell (terminal).
-To return to the menu, enter menu in the terminal.
-
-EOF
+11)
 cd /tmp
 clear
-dialog --textbox menu_exit_note 7 54
+dialog --msgbox "You will now exit to the shell (terminal).\n\
+To return to the menu, enter menu in the terminal." 7 54
 clear
 exit
 ;;
