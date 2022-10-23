@@ -21,7 +21,7 @@ Please wait 30 seconds before clicking on\n\
 "Retry" to reconnect.\n\n\
 After this, every time you open a terminal,\n\
 a menu will offer all the available options.\n\n\
-To proceed, press Enter." 15 49
+To proceed, press Enter." 15 48
 clear
 
 cd /
@@ -37,8 +37,8 @@ fi
 
 cd /tmp
 sudo rm update_scripts.sh
-#wget https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/Navid_2022_10_14c_Test/update_scripts.sh # Navid's
-wget https://raw.githubusercontent.com/jamorham/nightscout-vps/vps-1/update_scripts.sh # Main
+wget https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/Navid_2022_10_14c_Test/update_scripts.sh # Navid's
+#wget https://raw.githubusercontent.com/jamorham/nightscout-vps/vps-1/update_scripts.sh # Main
 if [ ! -s update_scripts.sh ]
 then
 echo "UNABLE TO DOWNLOAD update_scripts SCRIPT! - cannot continue - please try again!"
@@ -62,7 +62,7 @@ sudo chown root:root start_menu.sh
 sudo chmod 755 start_menu.sh
 sudo mv -f start_menu.sh /etc/profile.d
 
-if [ ! alias menu >/dev/null 2>&1 ] # If there is no alias for menu
+if ! alias menu >/dev/null 2>&1  # If there is no alias for menu
 then
 cat >> ~/.bash_aliases << EOF
 alias menu="/xDrip/scripts/menu.sh"
