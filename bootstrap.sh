@@ -21,7 +21,7 @@ Please wait 30 seconds before clicking on\n\
 "Retry" to reconnect.\n\n\
 After this, every time you open a terminal,\n\
 a menu will offer all the available options.\n\n\
-To proceed, press Enter." 15 53
+To proceed, press Enter." 15 49
 clear
 
 cd /
@@ -62,10 +62,13 @@ sudo chown root:root start_menu.sh
 sudo chmod 755 start_menu.sh
 sudo mv -f start_menu.sh /etc/profile.d
 
-cat > ~/.bash_aliases << EOF
+if [ ! alias menu >/dev/null 2>&1 ] # If there is no alias for menu
+then
+cat >> ~/.bash_aliases << EOF
 alias menu="/xDrip/scripts/menu.sh"
 
 EOF
+fi
 
 # Reboot
 sudo reboot
