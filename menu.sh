@@ -12,14 +12,14 @@ Press Enter to execute the highlighted option.\n\n" 20 50 11\
  "1" "Initial Nightscout install"\
  "2" "noip.com association"\
  "3" "Edit Nightscout Variables"\
- "4" "Transfer database from another server"\
+ "4" "Copy data from another Nightscout"\
  "5" "Update/Customize Nightscout"\
  "6" "Update scripts"\
  "7" "Backup MongoDB"\
  "8" "Restore MongoDB backup"\
  "9" "Status"\
- "10" "Reboot server"\
- "11" "Exit" 3>&1 1>&2 2>&3)
+ "10" "Reboot server (Nightscout)"\
+ "11" "Exit to shell (terminal)" 3>&1 1>&2 2>&3)
 
 case $Choice in
 
