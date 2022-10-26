@@ -7,14 +7,11 @@ echo
 while :
 do
 
-Choice=$(dialog --nocancel --nook --menu "     .\n\
-     '\n\
-   ,'|p.\n\
-  /  |MW\\n\ 
-  L  |WW9   xDrip\n\
-   `~JWP\n\\n\
+Choice=$(dialog --colors --nocancel --nook --menu "\
+      \Zr Developed by the xDrip team \Zn\
+  \n\n
 Use the arrow keys to move the cursor.\n\
-Press Enter to execute the highlighted option.\n\n" 20 50 11\
+Press Enter to execute the highlighted option.\n\n" 22 50 11\
  "1" "Initial Nightscout install"\
  "2" "noip.com association"\
  "3" "Edit Nightscout Variables"\
@@ -25,7 +22,8 @@ Press Enter to execute the highlighted option.\n\n" 20 50 11\
  "8" "Restore MongoDB backup"\
  "9" "Status"\
  "10" "Reboot server (Nightscout)"\
- "11" "Exit to shell (terminal)" 3>&1 1>&2 2>&3)
+ "11" "Exit to shell (terminal)"\
+ 3>&1 1>&2 2>&3)
 
 case $Choice in
 
@@ -89,3 +87,4 @@ exit
 esac
 
 done
+ 

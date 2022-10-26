@@ -12,6 +12,17 @@ echo "Cannot continue.."
 exit 5
 fi
 
+dialog --colors --msgbox "      \Zr Developed by the xDrip team \Zn\n\n\n\
+Some required packages will be installed now.\n\
+It will take about 20 minutes.\n
+This terminal needs to be kept open.\n\n\
+If this is not a good time, you can press excape to cancel." 14 50
+if [ $? = 255 ]
+then
+clear
+exit
+fi
+
 if [ ! -s /var/SWAP ]
 then
 echo "Creating swap partition"
@@ -34,8 +45,10 @@ sudo apt-get -y install mongodb-server
 sudo apt-get -y install jq
 
 # Create mongo user and admin.
-echo -e "use Nightscout\ndb.createUser({user: \"username\", pwd: \"password\", roles:[\"readWrite\"]})\nquit()" | mongo
-echo -e "use admin\ndb.createUser({ user: \"mongoadmin\" , pwd: \"mongoadmin\", roles: [\"userAdminAnyDatabase\", \"dbAdminAnyDatabase\", \"readWriteAnyDatabase\"]})\nquit()" | mongo
+echo -e "use Nightscout\ndb.createUser({user: \"username\", pwd: \"password\", roles:[\"readWrite\"]})\nquit()"
+| mongo
+echo -e "use admin\ndb.createUser({ user: \"mongoadmin\" , pwd: \"mongoadmin\", roles: [\"userAdminAnyDatabase\"
+, \"dbAdminAnyDatabase\", \"readWriteAnyDatabase\"]})\nquit()" | mongo
 
 echo "Installing Node js"
 
@@ -44,19 +57,4 @@ sudo apt -y autoremove
 cd /srv
 
 echo "Installing Nightscout"
-
-sudo git clone https://github.com/jamorham/nightscout-vps.git
-cd nightscout-vps
-sudo git checkout vps-1
-sudo git pull
-
-sudo npm install
-sudo npm run generate-keys
-
-for loop in 1 2 3 4 5 6 7 8 9
-do
-read -t 0.1 dummy
-done
-
-clear
  
