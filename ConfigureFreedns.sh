@@ -43,8 +43,12 @@ clear
 
 if [ $go_back -lt 1 ] # if 7
 then
+  # As per the FreeDNS api (https://freedns.afraid.org/api/),
+  # the username must be lowercase.
+  user_lowercase=$(echo "$user" | awk '{print tolower($0)}')
+
   arg1="https://freedns.afraid.org/api/?action=getdyndns&v=2&sha="
-  arg2=$(echo -n "$user|$pass" | sha1sum | awk '{print $1;}')
+  arg2=$(echo -n "$user_lowercase|$pass" | sha1sum | awk '{print $1;}')
   arg="$arg1$arg2"
 
   wget -O /tmp/hosts "$arg"
