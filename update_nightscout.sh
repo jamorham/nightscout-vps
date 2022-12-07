@@ -129,5 +129,7 @@ sleep 10
 done
 EOF
 
+dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\n\
+The installation is complete.  A reboot is required to start Nightscout.  Press enter to reboot." 8 50 
 sudo reboot # Reboot so that Nightscout starts.
  
