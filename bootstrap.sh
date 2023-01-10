@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-# curl https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/Utility_Logs/bootstrap.sh | bash
+# curl https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/MoreMenu_Test/bootstrap.sh | bash
 
 echo 
 echo "Bootstrapping the installation files - Navid200"
@@ -53,7 +53,7 @@ ls > /tmp/repo
 sudo mv -f /tmp/repo .    # The repository name is now in /srv/repo
 cd "$(< repo)"
 sudo git checkout vps-1  # ✅✅✅✅✅ Main - Uncomment before PR.
-#sudo git checkout Utility_Logs  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
+#sudo git checkout MoreMenu_Test  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
 
 sudo git branch > /tmp/branch
 grep "*" /tmp/branch | awk '{print $2}' > /tmp/brnch
@@ -106,7 +106,7 @@ fi
 clear
 dialog --colors --msgbox "     \Zr Developed by the xDrip team \Zn\n\n\
 If any item above the line on the status page (shown next) is red, it represents an incorrect parameter that could result in malfunction or cost.  \
-Please take a note, delete the virtual machine, and create a new one.   For more detail, please refer to the guide." 12 50
+Please take a note, delete the virtual machine, and create a new one.   For more detail, please refer to the guide." 13 50
 
 # Add log 
 rm -rf /tmp/Logs
