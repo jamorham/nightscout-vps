@@ -39,6 +39,14 @@ sudo rm -rf /xDrip/ConfigServer # Remove the existing ConfigServer directory
 sudo cp -r ConfigServer /xDrip/.
 cd ..
 
+# Let's install the new packages for those who already have an installation.
+qrencodev=$(qrencode --version | sed -n 1p)
+if [ "$qrencodev" = "" ] # If qrencode is not installed already
+then
+  sudo apt-get update
+  sudo apt-get -y install qrencode
+fi 
+
 # Add log
 rm -rf /tmp/Logs
 echo -e "The platform has been updated     $(date)\n" | cat - /xDrip/Logs > /tmp/Logs
