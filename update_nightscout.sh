@@ -118,11 +118,11 @@ while [ 1 ]
 do
 
 . /etc/nsconfig
-export MONGO_COLLECTION="entries"
-export MONGO_CONNECTION="mongodb://username:password@localhost:27017/Nightscout"
-export INSECURE_USE_HTTP=true
-export HOSTNAME="127.0.0.1"
-export PORT="1337"
+export MONGO_COLLECTION='entries'
+export MONGO_CONNECTION='mongodb://username:password@localhost:27017/Nightscout'
+export INSECURE_USE_HTTP='true'
+export HOSTNAME='127.0.0.1'
+export PORT='1337'
 
 node server.js
 sleep 10

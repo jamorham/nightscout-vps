@@ -53,6 +53,8 @@ export ENABLE="careportal food boluscalc bwp cob bgi pump openaps rawbg iob upba
 export AUTH_DEFAULT_ROLES="denied"
 export PUMP_FIELDS="reservoir battery clock"
 export DEVICESTATUS_ADVANCED="true"
+export THEME="colors"
+export DBSIZE_MAX="20000"
 
 EOF
 
@@ -61,12 +63,6 @@ fi
 cat > /etc/nightscout-start.sh << "EOF"
 #!/bin/sh
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-. /etc/nsconfig
-export MONGO_COLLECTION="entries"
-export MONGO_CONNECTION="mongodb://username:password@localhost:27017/Nightscout"
-export INSECURE_USE_HTTP=true
-export HOSTNAME="127.0.0.1"
-export PORT="1337"
 cd /srv
 cd "$(< repo)" 
 while [ "`netstat -lnt | grep 27017 | grep -v grep`" = "" ]
@@ -77,8 +73,14 @@ done
 sleep 5
 while [ 1 ]
 do
+. /etc/nsconfig
+export MONGO_COLLECTION='entries'
+export MONGO_CONNECTION='mongodb://username:password@localhost:27017/Nightscout'
+export INSECURE_USE_HTTP='true'
+export HOSTNAME='127.0.0.1'
+export PORT='1337'
 node server.js
-sleep 30
+sleep 10
 done
 EOF
 

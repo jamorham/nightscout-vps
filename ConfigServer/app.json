@@ -1,0 +1,389 @@
+{
+    "name": "CGM Remote Monitor",
+    "repository": "https://github.com/nightscout/cgm-remote-monitor",
+    "env": {
+        "MONGODB_URI": {
+            "description": "The connection string for your Mongo database. Something like `mongodb://sally:sallypass@ds099999.mongolab.com:99999/nightscout`.",
+            "value": "",
+            "required": true
+        },
+        "ALARM_HIGH": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_LOW": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_TIMEAGO_URGENT": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_TIMEAGO_URGENT_MINS": {
+            "description": "minutes since the last reading to trigger a urgent alarm",
+            "value": "30",
+            "required": false
+        },
+        "ALARM_TIMEAGO_WARN": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_TIMEAGO_WARN_MINS": {
+            "description": "minutes since the last reading to trigger a warning",
+            "value": "15",
+            "required": false
+        },
+        "ALARM_TYPES": {
+            "description": "currently 2 alarm types are supported, and can be used independently or combined.  The `simple` alarm type only compares the current BG to `BG_` thresholds above, the `predict` alarm type uses highly tuned formula that forecasts where the BG is going based on it's trend.  `predict` **DOES NOT** currently use any of the `BG_`* ENV's",
+            "value": "simple` if any `BG_`* ENV's are set, otherwise `predict",
+            "required": false
+        },
+        "ALARM_URGENT_HIGH": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_URGENT_LOW": {
+            "description": "possible values `on` or `off`",
+            "value": "on",
+            "required": false
+        },
+        "API_SECRET": {
+            "description": "A secret passphrase that must be at least 12 characters long.",
+            "value": "",
+            "required": true
+        },
+        "BG_HIGH": {
+            "description": "the high BG outside the target range that is considered urgent (interprets units based on DISPLAY_UNITS setting)",
+            "value": "260",
+            "required": false
+        },
+        "BG_LOW": {
+            "description": "the low BG outside the target range that is considered urgent (interprets units based on DISPLAY_UNITS setting)",
+            "value": "55",
+            "required": false
+        },
+        "BG_TARGET_BOTTOM": {
+            "description": "the bottom of the target range, also used to draw the line on the chart (interprets units based on DISPLAY_UNITS setting)",
+            "value": "80",
+            "required": false
+        },
+        "BG_TARGET_TOP": {
+            "description": "the top of the target range, also used to draw the line on the chart (interprets units based on DISPLAY_UNITS setting)",
+            "value": "180",
+            "required": false
+        },
+        "BOLUS_RENDER_OVER": {
+            "description": "U value over which the bolus values are rendered on the chart if the 'x U and Over' option is selected.",
+            "value": "1",
+            "required": false
+        },
+        "BRIDGE_PASSWORD": {
+            "description": "Your Dexcom account password, to receive CGM data from the Dexcom Share service. Also make sure to include 'bridge' in your ENABLE line.",
+            "value": "",
+            "required": false
+        },
+        "BRIDGE_SERVER": {
+            "description": "If you are bridging from the Dexcom Share service, and are anywhere *outside* the US, change this to EU. ('US' or 'EU')",
+            "value": "US",
+            "required": false
+        },
+        "BRIDGE_USER_NAME": {
+            "description": "Your Dexcom account username, to receive CGM data from the Dexcom Share service. Also make sure to include 'bridge' in your ENABLE line.",
+            "value": "",
+            "required": false
+        },
+        "CUSTOM_TITLE": {
+            "description": "Title for the main view",
+            "value": "Nightscout",
+            "required": false
+        },
+        "DISPLAY_UNITS": {
+            "description": "Options are `mg/dl` or `mmol/L` (or just `mmol`).  Setting to `mmol/L` puts the entire server into `mmol/L` mode by default, no further settings needed.",
+            "value": "mg/dl",
+            "required": true
+        },
+        "ENABLE": {
+            "description": "Used to enable optional features, expects a space delimited list, such as: `careportal rawbg iob`, see [plugins](#plugins) below",
+            "value": "",
+            "required": false
+        },
+        "MMCONNECT_USER_NAME": {
+            "description": "Your CareLink account username, to receive CGM data from the CareLink service. Also make sure to include 'mmconnect' in your ENABLE line.",
+            "value": "",
+            "required": false
+        },
+        "MMCONNECT_PASSWORD": {
+            "description": "Your CareLink account password, to receive CGM data from the CareLink service. Also make sure to include 'mmconnect' in your ENABLE line.",
+            "value": "",
+            "required": false
+        },
+        "MMCONNECT_SERVER": {
+            "description": "If you are bridging from the CareLink service, and are anywhere *outside* the US, change this to EU. ('US' or 'EU')",
+            "value": "US",
+            "required": false
+        },
+        "NIGHT_MODE": {
+            "description": "possible values `on` or `off`",
+            "value": "off",
+            "required": false
+        },
+        "SHOW_PLUGINS": {
+            "description": "enabled plugins that should have their visualizations shown, defaults to all enabled",
+            "value": "",
+            "required": false
+        },
+        "SHOW_RAWBG": {
+            "description": "possible values `always`, `never` or `noise`",
+            "value": "never",
+            "required": false
+        },
+        "THEME": {
+            "description": "possible values `default`, `colors`, or `colorblindfriendly`",
+            "value": "colors",
+            "required": false
+        },
+        "TIME_FORMAT": {
+            "description": "possible values `12` or `24`",
+            "value": "12",
+            "required": false
+        },
+        "MONGODB_COLLECTION": {
+            "description": "The Mongo collection where CGM entries are stored.",
+            "value": "entries",
+            "required": true
+        },
+        "DISABLE": {
+            "description": "Used to disable default features, expects a space delimited list, such as: `direction upbat`, see [plugins](#plugins) below",
+            "value": "",
+            "required": false
+        },
+        "BASE_URL": {
+            "description": "Used for building links to your site's API, i.e. Pushover callbacks, usually the URL of your Nightscout site.",
+            "value": "",
+            "required": false
+        },
+        "AUTH_DEFAULT_ROLES": {
+            "description": "possible values `readable`, `denied`, or any valid role",
+            "value": "readable",
+            "required": false
+        },
+        "IMPORT_CONFIG": {
+            "description": "Used to import settings and extended settings from a url such as a gist.  Structure of file should be something like: `{\"settings\": {\"theme\": \"colors\"}, \"extendedSettings\": {\"upbat\": {\"enableAlerts\": true}}}`",
+            "value": "",
+            "required": false
+        },
+        "TREATMENTS_AUTH": {
+            "description": "possible values `on` or `off`. Deprecated, if set to `off` the `careportal` role will be added to `AUTH_DEFAULT_ROLES`",
+            "value": "on",
+            "required": false
+        },
+        "ALARM_URGENT_HIGH_MINS": {
+            "description": "Number of minutes to snooze urgent high alarms, space separated for options in browser, first used for pushover",
+            "value": "30 60 90 120",
+            "required": false
+        },
+        "ALARM_HIGH_MINS": {
+            "description": "Number of minutes to snooze high alarms, space separated for options in browser, first used for pushover",
+            "value": "30 60 90 120",
+            "required": false
+        },
+        "ALARM_LOW_MINS": {
+            "description": "Number of minutes to snooze low alarms, space separated for options in browser, first used for pushover",
+            "value": "15 30 45 60",
+            "required": false
+        },
+        "ALARM_URGENT_LOW_MINS": {
+            "description": "Number of minutes to snooze urgent low alarms, space separated for options in browser, first used for pushover",
+            "value": "15 30 45",
+            "required": false
+        },
+        "ALARM_URGENT_MINS": {
+            "description": "Number of minutes to snooze urgent alarms (that aren't tagged as high or low), space separated for options in browser, first used for pushover",
+            "value": "30 60 90 120",
+            "required": false
+        },
+        "ALARM_WARN_MINS": {
+            "description": "Number of minutes to snooze warning alarms (that aren't tagged as high or low), space separated for options in browser, first used for pushover",
+            "value": "30 60 90 120",
+            "required": false
+        },
+        "MONGO_TREATMENTS_COLLECTION": {
+            "description": "The collection used to store treatments entered in the Care Portal, see the `ENABLE` env var above",
+            "value": "treatments",
+            "required": false
+        },
+        "MONGO_DEVICESTATUS_COLLECTION": {
+            "description": "The collection used to store device status information such as uploader battery",
+            "value": "devicestatus",
+            "required": false
+        },
+        "MONGO_PROFILE_COLLECTION": {
+            "description": "The collection used to store your profiles",
+            "value": "profile",
+            "required": false
+        },
+        "MONGO_FOOD_COLLECTION": {
+            "description": "The collection used to store your food database",
+            "value": "food",
+            "required": false
+        },
+        "MONGO_ACTIVITY_COLLECTION": {
+            "description": "The collection used to store activity data",
+            "value": "activity",
+            "required": false
+        },
+        "PORT": {
+            "description": "The port that the node.js application will listen on.",
+            "value": "1337",
+            "required": false
+        },
+        "HOSTNAME": {
+            "description": "The hostname that the node.js application will listen on, null by default for any hostname for IPv6 you may need to use `::`.",
+            "value": "",
+            "required": false
+        },
+        "SSL_KEY": {
+            "description": "Path to your ssl key file, so that ssl(https) can be enabled directly in node.js. If using Let's Encrypt, make this variable the path to your privkey.pem file (private key).",
+            "value": "",
+            "required": false
+        },
+        "SSL_CERT": {
+            "description": "Path to your ssl cert file, so that ssl(https) can be enabled directly in node.js. If using Let's Encrypt, make this variable the path to fullchain.pem file (cert + ca).",
+            "value": "",
+            "required": false
+        },
+        "SSL_CA": {
+            "description": "Path to your ssl ca file, so that ssl(https) can be enabled directly in node.js. If using Let's Encrypt, make this variable the path to chain.pem file (chain).",
+            "value": "",
+            "required": false
+        },
+        "DE_NORMALIZE_DATES": {
+            "description": "The Nightscout REST API normalizes all entered dates to UTC zone. Some Nightscout clients have broken date deserialization logic and expect to received back dates in zoned formats. Setting this variable to `true` causes the REST API to serialize dates sent to Nightscout in zoned format back to zoned format when served to clients over REST.",
+            "value": "true",
+            "required": false
+        },
+        "DAY_START": {
+            "description": "time for start of day (0.0 - 24.0) for features using day time / night time options",
+            "value": "7.0",
+            "required": false
+        },
+        "DAY_END": {
+            "description": "time for end of day (0.0 - 24.0) for features using day time / night time options",
+            "value": "21.0",
+            "required": false
+        },
+        "SHOW_FORECAST": {
+            "description": "plugin forecasts that should be shown by default, supports space delimited values such as `\"ar2 openaps\"`",
+            "value": "ar2",
+            "required": false
+        },
+        "LANGUAGE": {
+            "description": "language of Nightscout. If not available english is used",
+            "value": "en",
+            "required": false
+        },
+        "SCALE_Y": {
+            "description": "The type of scaling used for the Y axis of the charts system wide.",
+            "value": "log",
+            "required": false
+        },
+        "EDIT_MODE": {
+            "description": "possible values `on` or `off`. Enables the icon allowing for editing of treatments in the main view.",
+            "value": "on",
+            "required": false
+        },
+        "INSECURE_USE_HTTP": {
+            "description": "Redirect unsafe http traffic to https. Possible values `false`, or `true`. Your site redirects to `https` by default. If you don't want that from Nightscout, but want to implement that with a Nginx or Apache proxy, set `INSECURE_USE_HTTP` to `true`. Note: This will allow (unsafe) http traffic to your Nightscout instance and is not recommended.",
+            "value": "false",
+            "required": false
+        },
+        "SECURE_HSTS_HEADER": {
+            "description": "Add HTTP Strict Transport Security (HSTS) header. Possible values `false`, or `true`.",
+            "value": "true",
+            "required": false
+        },
+        "SECURE_HSTS_HEADER_INCLUDESUBDOMAINS": {
+            "description": "includeSubdomains options for HSTS. Possible values `false`, or `true`.",
+            "value": "false",
+            "required": false
+        },
+        "SECURE_HSTS_HEADER_PRELOAD": {
+            "description": "ask for preload in browsers for HSTS. Possible values `false`, or `true`.",
+            "value": "false",
+            "required": false
+        },
+        "SECURE_CSP": {
+            "description": "Add Content Security Policy headers. Possible values `false`, or `true`.",
+            "value": "false",
+            "required": false
+        },
+        "SECURE_CSP_REPORT_ONLY": {
+            "description": "If set to `true` allows to experiment with policies by monitoring (but not enforcing) their effects. Possible values `false`, or `true`.",
+            "value": "false",
+            "required": false
+        },
+        "SGV": {
+            "description": "Sensor Glucose Value",
+            "value": "",
+            "required": false
+        },
+        "SGV age": {
+            "description": "time since the last SGV read",
+            "value": "",
+            "required": false
+        },
+        "SGV delta": {
+            "description": "change of SGV in the last 5 minutes",
+            "value": "",
+            "required": false
+        },
+        "Trend arrow": {
+            "description": "icon of the SG trend",
+            "value": "",
+            "required": false
+        },
+        "Time": {
+            "description": "current time",
+            "value": "",
+            "required": false
+        },
+        "Line break": {
+            "description": "invisible item that will move following items to the next line (by default all are showing on the same level)",
+            "value": "",
+            "required": false
+        },
+        "Clock": {
+            "description": "Shows current BG, trend arrow, and time of day. Grey text on a black background.",
+            "value": "",
+            "required": false
+        },
+        "Color": {
+            "description": "Shows current BG and trend arrow. White text on a color background.",
+            "value": "",
+            "required": false
+        },
+        "Simple": {
+            "description": "Shows current BG. Grey text on a black background.",
+            "value": "",
+            "required": false
+        },
+        "FRAME_URL_1": {
+            "description": "URL where content is loaded, for the first view (increment the number up to 8 to get more views)",
+            "value": "",
+            "required": false
+        },
+        "FRAME_NAME_1": {
+            "description": "Name for the first split view portion of the screen (increment the number to name more views)",
+            "value": "",
+            "required": false
+        }
+    },
+    "addons": [
+        "papertrail"
+    ]
+}
