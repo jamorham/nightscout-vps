@@ -115,7 +115,7 @@ fi
 clear
 Choice=$(dialog --colors --nocancel --nook --menu "\
        \Zr Developed by the xDrip team \Zn\n\n\
-                \Zb Status       2022.12.06 \Zn\n\n\
+                \Zb Status       2023.01.10 \Zn\n\n\
 Zone: $Zone \n\
 RAM: $Ramsize \n\
 Disk type: $disk \n\
