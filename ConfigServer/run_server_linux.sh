@@ -23,7 +23,7 @@ export ENV_DEBUG=False
 export ENV_TOKEN=$(uuidgen)
 export NS_CONFIG_FILE=/etc/nsconfig
 export SCRIPT_DIR=$( dirname -- "$0"; )
-
+export APP_JSON_FILE=$SCRIPT_DIR/app.json
 
 
 sudo apt-get -y install python3-pip >> /tmp/variables_log 2>&1

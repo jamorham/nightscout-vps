@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<link rel="icon" href="data:image/png;base64,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">
     <style>
         #candidate {
             border-radius: 20%;
@@ -10,6 +11,7 @@
         }
 
         table {
+            overflow-y:scroll
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 0.9em;
@@ -26,6 +28,10 @@
 
         th, td {
             padding: 12px 15px;
+            text-align: center;
+        }
+        .break{
+            word-break: normal;
         }
 
         .hovertext {
@@ -55,7 +61,16 @@
             visibility: visible;
         }
 
-
+        .defaultchange {
+            background-color: #e1ecf4;
+            border-radius: 3px;
+            border: 1px solid #7aa7c7;
+            box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+            box-sizing: border-box;
+            color: #39739d;
+            cursor: pointer;
+            font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+        }
         button, .change {
             background-color: #e1ecf4;
             border-radius: 3px;
@@ -95,58 +110,187 @@
         .qr-img img {
             width: 100%;
         }
+        
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 15% auto; /* 15% from the top and centered */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 25%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
 
     </style>
 </head>
 
 <body>
-    <form action="removerecord/" method="post">
+
+    <form action="handle/" method="post">
         {% csrf_token %}
+
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span onclick="toggleChange()" class="close">&times;</span>
+            <p id="changeMsg">Some text in the Modal..</p>
+            <textarea id="changedVal" placeholder="Insert your new value" name="changedValue"></textarea>
+            
+            <button id="change" name="change"> change! </button>
+          </div>
+
+        </div>
+
 
         <table id="myTable" style="width:100%">
             <tr>
                 <th>Key</th>
                 <th>Value</th>
+                <th>Description</th>
                 <th>Remove</th>
                 <th>Change Value</th>
+                <th>Set Default Value</th>
             </tr>
             {% for x in variables %}
             <tr>
                 <td> {{ x.key }}</td>
-                <td> {{ x.value }}</td>
-                {% if "API_SECRET_KEY" ==  x.key %}
-                <td> <button name="key" value={{ x.key }} disabled="disabled" class="hovertext" data-hover="Secret_Key can not be removed"> Remove </button> </td>
+                <td class="break"> {{ x.value | linebreaks }}</td>
+                <td class="break"> {{ x.description }}</td>
+                
+                {% if x.required %}
+                <td> <button name="remove" value={{ x.key }} disabled="disabled" class="hovertext" data-hover="can not remove Required Keys"> Remove </button> </td>
                 {% else %}
-                <td> <button name="key" value={{ x.key }}> Remove </button> </td>
+                <td> <button name="remove" value={{ x.key }}> Remove </button> </td>
                 {% endif %}
-                <td class="change" onclick="changePostRequest('{{ x.key }}', '{{ x.value }}')"> Change Value </td>
+                
+                <td> <button type="button" onclick="toggleChangeModal('{{ x.key }}', '{{ x.value | linebreaks }}')"> Change Value </button> </td>
+                
+                {% if x.description == "--no descrition--" %}
+                <td class="hovertext" data-hover="unknown keys have no default value." > <button disabled="true" name="default" value={{ x.key }}> Set default </button> </td>
+                {% else %}
+                <td> <button type="button" onclick="toggleChangeModal('{{ x.key }}', '{{ x.default}}', true)"> Set default </button> </td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+        </table>
+
+        Key:<br>
+        <input id="key" placeholder="Insert your new key" name="key" oninput="shouldEnable()">
+        <br><br>
+        Value:<br>
+        <textarea id="value" name="value" placeholder="Insert your new value" oninput="shouldEnable()"></textarea>
+        <br><br>
+        <span class="hovertext" data-hover="Key and Value Must not be empty or contain the symbols: ' ? ! ' '">
+            <input id="addBtn" name="Add" type="submit" value="Add new key" disabled="disabled">
+        </span>
+
+    <button id="toggle_qr" type="button" onclick="toggleQR()"> Click Here for QR configartion code</button>
+    <div style="display:none" id="QR_div" class="qr-img">
+        {{ svg|safe }}
+    </div>
+
+    <button type="button" id="toggleTBL"onclick="toggleTbl()">Click Here To show some useful keys</button>
+
+        <table id="pos_keys_tbl" style="width:100%; display:none;">
+            <tr>
+                <th>Key</th>
+                <th>Default Value</th>
+                <th>Description</th>
+                <th>Add Key</th>
+            </tr>
+            {% for x in possible_items %}
+            <tr>
+                <td> {{ x.key }}</td>
+                <td class="break"> {{ x.default | linebreaks }}</td>
+                <td class="break"> {{ x.description }}</td>
+                <td> <button type="button" onclick="AddPossibleKey('{{ x.key }}', '{{ x.default }}')"> Add Key </button> </td>
 
             </tr>
             {% endfor %}
         </table>
     </form>
 
-    <form id="add-form" action="addrecord/" method="post">
-        {% csrf_token %}
-        Key:<br>
-        <input id="key" placeholder="Insert your new key" name="key" oninput="shouldEnable()">
-        <br><br>
-        Value:<br>
-        <input id="value" name="value" placeholder="Insert your new value" oninput="shouldEnable()">
-        <br><br>
-        <span class="hovertext" data-hover="Key and Value Must not be empty or contain the symbols: ' ? ! ' '">
-            <input id="addBtn" type="submit" value="Add new key" disabled="disabled">
-        </span>
-    </form>
-
-
-    <button id="toggleQR"onclick="toggleQR()">Click Here for QR configartion code</button>
-    <div style="display:none" id="QR_div" class="qr-img">
-        {{ svg|safe }}
-    </div>
-
     <script>
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+            modal.style.display = "none";
+            }
+        }
+        function AddPossibleKey(key, value){
+            console.log(key, value);
+            document.getElementById("key").value = key;
+            document.getElementById("value").value = value;
+            var btn = document.getElementById("addBtn");
+            btn.disabled = false;
+            document.getElementById("addBtn").click();
+        }
+        function toggleQR() {
+            var x = document.getElementById("QR_div");
+            var btn = document.getElementById("toggle_qr");
+            if (x.style.display == "none") {
+                btn.innerHTML = "Click Here to Hide QR code"
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+                btn.innerHTML = "Click Here for QR configartion code"
 
+            }
+        }
+        function toggleChange(){
+            var modal = document.getElementById("myModal");
+            if (modal.style.display == "none" || modal.style.display == "" )
+                modal.style.display = "block";
+            else
+                modal.style.display = "none";
+        }
+        function toggleChangeModal(key, value, defaultValue = false){
+            value = escape(value)
+            value = value.replaceAll("<p>", "")
+            value = value.replaceAll("</p>", "")
+            value = value.replaceAll("<\\/p>", "")
+            value = value.replaceAll("<br>", "\n")
+            document.getElementById("changedVal").value = value;
+            changeBtn = document.getElementById("change");
+            changeBtn.value = key;
+            if (defaultValue){
+                changeBtn.click();
+                return;
+            }
+            toggleChange();
+            var text = document.getElementById("changeMsg");
+            var msg = "You chose to replace the value of key " + key;
+            text.innerHTML = msg;
+        }
         function shouldEnable() {
             var key = document.getElementById("key").value
             var value = document.getElementById("value").value
@@ -154,6 +298,10 @@
                 document.getElementById("addBtn").disabled = true;
                 return;
             }
+            const invalidKeys = ["MONGO_COLLECTION", "MONGO_CONNECTION", "MONGODB_URI"]
+            if (invalidKeys.includes(key)){
+                    return;
+                }
             const invalid = [' ', '"', "'", "?", "!", "\n", "\t"];
             for (var index in invalid) {
                 var char = invalid[index]
@@ -163,24 +311,6 @@
                 }
             }
             document.getElementById("addBtn").disabled = false;
-        }
-
-        function changePostRequest(key, value) {
-            const csrftoken = getCookie('csrftoken');
-            var content = prompt("change your value Into:", value);
-            if (content == null || content == "") return;
-            console.log("sending fetch")
-            fetch("changerecord/", {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({ 'key': key, 'new_content': content })
-            }).then(() => location.reload()); //somehow, the return line in changerecord in py does not work. fixed in the future.
-
         }
 
         function getCookie(name) {
@@ -197,18 +327,30 @@
             }
             return cookieValue;
         }
-        function toggleQR() {
-            var x = document.getElementById("QR_div");
-            var btn = document.getElementById("toggleQR");
+        
+        function toggleTbl() {
+            var x = document.getElementById("pos_keys_tbl");
+            var btn = document.getElementById("toggleTBL");
             if (x.style.display === "none") {
-                btn.innerHTML = "Click Here to Hide QR code"
+                btn.innerHTML = "Click Here to Hide possible keys table"
                 x.style.display = "block";
             } else {
                 x.style.display = "none";
-                btn.innerHTML = "Click Here for QR configartion code"
-
+                btn.innerHTML = "Click Here To show some useful keys"
             }
         }
+
+        escape = function (str) {
+            return str
+                .replace(/[\\]/g, '\\\\')
+                .replace(/[\"]/g, '\\\"')
+                .replace(/[\/]/g, '\\/')
+                .replace(/[\b]/g, '\\b')
+                .replace(/[\f]/g, '\\f')
+                .replace(/[\n]/g, '\\n')
+                .replace(/[\r]/g, '\\r')
+                .replace(/[\t]/g, '\\t');
+        };
 
     </script>
 </body>

@@ -41,59 +41,48 @@ def index(request):
     # Set a session value
     request.session['token'] = token
     items = db.get_items()
+    possible_items = db.get_possible_items()
     try:
         api_key = list(filter(lambda x: (x.key == "API_SECRET"), items))[0].value
     except:
+        print("Alert: No API_SECRET key in config file")
         api_key = "No API_SECRET in file"
     context = {
     'variables': items,
+    "possible_items" : possible_items,
     'svg' : generateQR(api_key, ENV_HOST),
     }
     return HttpResponse(template.render(context, request))
 
-def addrecord(request):
-    print("In add record",type(request), request, request.POST.get('token',''), request.session.get('token', 'mini'))
-    print("In add record 2", request.session.get('token', 'mini'))
+def handle_requests(request):
+    print("Hi! this is handle_requests!\n\n\n")
+    print(request.POST)
     apps.kiling_timer.ServerInUse()
     token = request.session.get('token', '')
     if token != ENV_TOKEN:
         context = {}
         template = loader.get_template('badkey.html')
         return HttpResponse(template.render(context, request))
-    obj = Object(request.POST['key'], request.POST['value'])
-    db.append_item(obj)
+    if "Add" in request.POST:
+        print("add function called")
+        obj = Object(request.POST["key"], request.POST["value"],)
+        db.append_item(obj)
+    elif "remove" in request.POST:
+        print("remove function called")
+        key = request.POST['remove']
+        db.remove_item(key)
+    elif "change" in request.POST:
+         item = Object(request.POST['change'], request.POST['changedValue'])
+         db.change_item(item)
+         print("change function called")
+    elif "default" in request.POST:
+        print("default function called")
     return HttpResponseRedirect(reverse('index'))
 
-def removerecord(request):
-    apps.kiling_timer.ServerInUse()
-    token = request.session.get('token', '')
-    if token != ENV_TOKEN:
-        context = {}
-        template = loader.get_template('badkey.html')
-        return HttpResponse(template.render(context, request))
-
-    key = request.POST['key']
-    db.remove_item(key)
-    return HttpResponseRedirect(reverse('index'))
-
-def changerecord(request):
-    apps.kiling_timer.ServerInUse()
-    print("change Called")
-    token = request.session.get('token', '')
-    if token != ENV_TOKEN:
-        context = {}
-        template = loader.get_template('badkey.html')
-        return HttpResponse(template.render(context, request))
-
-    data = json.loads(request.body.decode('utf-8'))
-    item = Object(data['key'], data['new_content'])
-    db.change_item(item)
-    return HttpResponseRedirect(reverse('index'))
 
 def generateQR(key, url):
     qr_data = {}
-    print
-    message = ["https://" + key + "@" + url+"/api/v1"]
+    message = ["https://" + key + "@" + url+ "/api/v1"]
     qr_data["rest"] = {"endpoint" : message}
     factory = qrcode.image.svg.SvgImage
     img = qrcode.make(dumps(qr_data), image_factory=factory, box_size=20)

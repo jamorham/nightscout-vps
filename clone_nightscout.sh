@@ -7,13 +7,13 @@ clone_collection() {
    echo $REST_ENDPOINT
    
    END_TIME=$EPOCHSECONDS
-   #give some extratime for bad packets
-   let "END_TIME=END_TIME+3600"
+   #Date is rounded for days, so, we need to be at least one day ahead
+   let "END_TIME=END_TIME+100000"
    
    rm /tmp/$collection_name.jq.json 
    
-   # loop in half year intervals.
-   DELTA=15552000
+   # loop in intervals of 4 monthes.
+   DELTA=10000000
    
    # loop until the time NS was created.
    while [ $END_TIME -gt 1325447430 ]
