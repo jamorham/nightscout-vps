@@ -9,18 +9,17 @@ do
 
 clear
 Choice=$(dialog --colors --nocancel --nook --menu "\
-      \Zr Developed by the xDrip team \Zn\n\n
+        \Zr Developed by the xDrip team \Zn\n\n
 Use the arrow keys to move the cursor.\n\
-Press Enter to execute the highlighted option.\n\n" 19 50 9\
+Press Enter to execute the highlighted option.\n\n" 18 50 8\
  "1" "Status"\
  "2" "Logs"\
- "3" "Edit variables"\
- "4" "Backup MongoDB"\
- "5" "Restore MongoDB"\
- "6" "Update platform"\
- "7" "Utilities"\
- "8" "Reboot server (Nightscout)"\
- "9" "Exit to shell (terminal)"\
+ "3" "Google Cloud setup"\
+ "4" "Nightscout setup"\
+ "5" "xDrip setup"\
+ "6" "Data"\
+ "7" "Reboot server (Nightscout)"\
+ "8" "Exit to shell (terminal)"\
  3>&1 1>&2 2>&3)
 
 case $Choice in
@@ -35,34 +34,22 @@ dialog --colors --title "\Zr Developed by the xDrip team \Zn"   --textbox /xDrip
 ;;
 
 3)
-/xDrip/scripts/varserver.sh
+/xDrip/scripts/menu_GC_Setup.sh
 ;;
 
 4)
-/xDrip/scripts/backupmongo.sh
+/xDrip/scripts/menu_NS_setup.sh
 ;;
 
 5)
-/xDrip/scripts/restoremongo.sh
+/xDrip/scripts/menu_xDripSetup.sh
 ;;
 
 6)
-cd /srv
-cd "$(< repo)"  # Go to the local database
-sudo git reset --hard  # delete any local edits.
-sudo git pull  # Update database from remote.
-sudo chmod 755 update_scripts.sh
-sudo cp -f update_scripts.sh /xDrip/scripts/.
-clear
-sudo /xDrip/scripts/update_scripts.sh
-sudo /xDrip/scripts/update_packages.sh
+/xDrip/scripts/menu_Data.sh
 ;;
 
 7)
-/xDrip/scripts/Utilities.sh
-;;
-
-8)
 dialog --colors --yesno "     \Zr Developed by the xDrip team \Zn\n\n\
 Are you sure you want to reboot the server?\n
 If you do, all unsaved open files will close without saving.\n"  10 50
@@ -75,11 +62,11 @@ sudo reboot
 fi
 ;;
 
-9)
+8)
 cd /tmp
 clear
 dialog --colors --msgbox "        \Zr Developed by the xDrip team \Zn\n\n\
-You will now exit to the shell (terminal).  To return to the menu, enter menu in the terminal." 9 50
+You will now exit to the shell (terminal).  To return to the menu, enter "menu" in the terminal without the quotes." 9 50
 clear
 exit
 ;;
