@@ -37,7 +37,6 @@ sudo apt-get -y install wget gnupg libcurl4 openssl liblzma5
 sudo apt-get -y install dirmngr apt-transport-https lsb-release ca-certificates
 sudo apt-get -y install net-tools
 sudo apt-get -y install build-essential
-sudo apt-get -y install mongodb-server
 # Please don't add any more utilities here.  Please instead, add them to update_packages.sh.
 
 /xDrip/scripts/update_packages.sh
@@ -45,13 +44,6 @@ sudo apt-get -y install mongodb-server
 # Create mongo user and admin.
 echo -e "use Nightscout\ndb.createUser({user: \"username\", pwd: \"password\", roles:[\"readWrite\"]})\nquit()" | mongo
 echo -e "use admin\ndb.createUser({ user: \"mongoadmin\" , pwd: \"mongoadmin\", roles: [\"userAdminAnyDatabase\", \"dbAdminAnyDatabase\", \"readWriteAnyDatabase\"]})\nquit()" | mongo
-
-sudo apt-get install -y  git python gcc g++ make
-
-echo "Installing Node js"
-
-sudo apt-get install -y nodejs npm
-sudo apt -y autoremove
 
 cd /srv
 
