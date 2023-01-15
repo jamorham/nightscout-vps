@@ -112,10 +112,17 @@ else
 cert="Valid"
 fi
 
+# Verify that the latest added package has been installed
+Missing=""
+if [ "$(which qrencode)" = "" ]
+then
+  Missing="\Zb\Z1Missing packages\Zn"
+fi
+
 clear
 Choice=$(dialog --colors --nocancel --nook --menu "\
-       \Zr Developed by the xDrip team \Zn\n\n\
-                \Zb Status       2023.01.10 \Zn\n\n\
+        \Zr Developed by the xDrip team \Zn\n\n\
+                \Zb Status \Zn\n\n\
 Zone: $Zone \n\
 RAM: $Ramsize \n\
 Disk type: $disk \n\
@@ -123,13 +130,15 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
+Nightscout on Google Cloud: 2023.01.15\n\
+$Missing \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
 Mongo: $mongo \n\
 NS proc: $ns \n\
 FreeDNS name and IP: $FD \n\
 Certificate: $cert \
- " 25 50 2\
+ " 29 50 2\
  "1" "Return"\
  "2" "Hostname and password"\
  3>&1 1>&2 2>&3)
@@ -142,9 +151,9 @@ exit
 
 2)
 dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\n\
-           \Zb\Z1Do not disclose.\Zn\n\n\
+               \Zb\Z1Keep private.\Zn\n\
 FreeDNS hostname:  $HOSTNAME\n\
-API_SECRET: $apisec" 10 50
+API_SECRET: $apisec" 9 50
 ;;
 
 esac
