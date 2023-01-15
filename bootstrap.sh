@@ -6,8 +6,10 @@ echo
 echo "Bootstrapping the installation files - Navid200"
 echo
 
+srv_notempty=0
 if [ ! -z "$(ls /srv)" ]
 then
+srv_notempty=1
 clear
 dialog --colors --msgbox "     \Zr Developed by the xDrip team \Zn\n\n\
 The script you are running, \"bootstrap\", is meant to initiate an installtion.  However, the file system does not seem to be empty.\n\n\
@@ -31,7 +33,6 @@ The Ubuntu version on the virtual machine is incorrect.  You need to delete the 
 exit
 fi
 
-sudo apt-get -y install wget bash
 sudo apt-get install -y  git python gcc g++ make
 sudo apt-get -y install netcat
 
