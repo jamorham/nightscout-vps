@@ -66,8 +66,7 @@ ls > /tmp/repo
 sudo mv -f /tmp/repo .    # The repository name is now in /srv/repo
 cd "$(< repo)"
 sudo git checkout vps-1  # ✅✅✅✅✅ Main - Uncomment before PR.
-#sudo git checkout SingleQuotes_Test  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
-# Navid_Promote_vps_2023_04_03
+sudo git checkout RemoveFreeDNS_Test  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
 
 sudo git branch > /tmp/branch
 grep "*" /tmp/branch | awk '{print $2}' > /tmp/brnch
