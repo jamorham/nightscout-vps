@@ -1,5 +1,10 @@
 #!/bin/bash
 
+freedns=$(wget --spider -S "https://freedns.afraid.org/" 2>&1 | awk '/HTTP\// {print $2}') # This will be 200 if FreeDNS is up.
+
+if [ $freedns -eq 200 ]  # Run the following only if FreeDNS is up.
+then
+
 if [ "`id -u`" != "0" ]
 then
 echo "Script needs root - use sudo bash ConfigureFreedns.sh"
@@ -137,7 +142,7 @@ read -a split <<< $FLine
 hostname=${split[0],,}
 directurl=${split[2]}
 
-#create a file to store the data for the startup script.
+#create a file to store FreeDNS details.
 cat> /etc/free-dns.sh<<EOF
 #!/bin/sh
 export HOSTNAME=$hostname
@@ -146,12 +151,6 @@ EOF
 
 # Start the first update immediately
 wget -O - --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 $directurl
-
-#Add the command to renew the script to the startup url
-if ! grep -q "DIRECTURL" /etc/rc.local; then
-    echo . /etc/free-dns.sh >>  /etc/rc.local
-    echo wget -O /tmp/freedns.txt --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 \$DIRECTURL >>  /etc/rc.local
-fi
 
 dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\n\
 Press enter to proceed.  Please be patient as it may take up to 10 minutes to complete." 8 50
@@ -209,4 +208,12 @@ Internal error.  Must run FreeDNS again.
 EOF
 
 dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\nInternal error.  Press enter to exit.  Then, run \"Install Nightscout phase 2\" again." 8 50
+
+else  # If FreeDNS is down
+dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\n\
+It seems the FreeDNS site is down.  Please try again when FreeDNS is back up." 9 50
+cat > /tmp/FreeDNS_Failed << EOF
+The FreeDNS site is down.
+EOF
+fi
  
