@@ -130,10 +130,10 @@ then
 fi  
 
 # Verify that Nightscout will start after a reboot even if FreeDNS is down.
-rclocal1=""
-if grep -q "DIRECTURL" /etc/rc.local
+rclocal1="\Zb\Z1Startup dependence on FreeDNS\Zn"
+if grep -q "freedns -eq 200" /etc/rc.local
 then
-  rclocal1="\Zb\Z1Startup dependence on FreeDNS\Zn"
+  rclocal1=""
 fi
 
 clear
@@ -147,7 +147,7 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Nightscout on Google Cloud: 2023.04.22\n\
+Nightscout on Google Cloud: 2023.04.23\n\
 $Missing $Phase1 $rclocal1 \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
