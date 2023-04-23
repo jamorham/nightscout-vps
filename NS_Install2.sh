@@ -149,6 +149,13 @@ service snapd stop
 service mongodb start
 screen -dmS nightscout sudo -u nobody bash /etc/nightscout-start.sh
 service nginx start
+freedns=$(wget --spider -S "https://freedns.afraid.org/" 2>&1 | awk '/HTTP\// {print $2}') # This will be 200 if FreeDNS is up.
+if [ $freedns -eq 200 ]  # Run the following only if FreeDNS is up.
+then
+. /etc/free-dns.sh
+wget -O /tmp/freedns.txt --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 $DIRECTURL
+fi
+
 EOF
 
  chmod a+x /etc/rc.local
