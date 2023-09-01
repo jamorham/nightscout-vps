@@ -101,9 +101,6 @@ FD="Match"
 fi
 fi
 
-. /etc/nsconfig
-apisec=$API_SECRET
-
 curl https://$HOSTNAME > /tmp/$HOSTNAME.txt
 curl_ret=$?
 if (( curl_ret != 0 )); then
@@ -152,6 +149,16 @@ then
   freedns_id_pass="\Zb\Z5FreeDNS ID and pass\Zn"
 fi
 
+# Mark existence of problem characters in API_SECRET
+apisec_literal=$(grep 'API_SECRET=' /etc/nsconfig | sed 's/^.*=//')
+apisec_literal="$apisec_literal"
+apisec_literal="${apisec_literal:1: -1}"
+apisec_problem=""
+if [[ "$apisec_literal" == *"@"* ]] || [[ "$apisec_literal" == *" "* ]] || [[ "$apisec_literal" == *"/"* ]] || [[ "$apisec_literal" == *"\\"* ]] || [[ "$apisec_literal" == *"'"* ]] || [[ "$apisec_literal" == *"\""* ]] || [[ "$apisec_literal" == *"$"* ]]
+then
+  apisec_problem="*" # Visible, but not obtrusive
+fi
+
 clear
 Choice=$(dialog --colors --nocancel --nook --menu "\
         \Zr Developed by the xDrip team \Zn\n\n\
@@ -163,8 +170,8 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Google Cloud Nightscout  2023.07.22\n\
-$Missing $Phase1 $rclocal_1 $freedns_id_pass \n\n\
+Google Cloud Nightscout  2023.09.01\n\
+$apisec_problem $Missing $Phase1 $rclocal_1 $freedns_id_pass\n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
 Mongo: $mongo \n\
@@ -186,7 +193,7 @@ exit
 dialog --colors --msgbox "       \Zr Developed by the xDrip team \Zn\n\n\
               \Zb\Z1Keep private!\Zn\n\n\
 Hostname:  $HOSTNAME\n\
-API_SECRET: $apisec\n\n\
+API_SECRET: $apisec_literal\n\n\
 FreeDNS User ID: $freedns_id\n\
 FreeDNS password: $freedns_pass" 13 50
 ;;
