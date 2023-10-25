@@ -64,7 +64,10 @@ then
 http="\Zb\Z1Closed\Zn" # Set color to red if the Firewall is not set.
 fi
 
+# Mongo version
 mongo="$(mongod --version | sed -n 1p)"
+
+# Nightscout process details
 ns="$(ps -ef | grep SCREEN | grep root | fold --width=40 | sed -n 1p)"
 
 uname="$(< /srv/username)"
@@ -114,7 +117,8 @@ fi
 # Verify that the latest added package has been installed
 # The utility must be the last added utility to the update_packages.sh file.
 Missing=""
-if [ "$(which file)" = "" ]
+whichpack=$(node -v)
+if [ ! "${whichpack%%.*}" = "v16" ]
 then
   Missing="\Zb\Z1Missing packages  \Zn"
 fi
@@ -194,7 +198,7 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Google Cloud Nightscout  2023.09.21\n\
+Google Cloud Nightscout  2023.10.25\n\
 $apisec_problem $Missing $Phase1 $rclocal_1 $freedns_id_pass \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
