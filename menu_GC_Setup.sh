@@ -9,8 +9,8 @@ Choice=$(dialog --colors --nocancel --nook --menu "\
         \Zr Developed by the xDrip team \Zn\n\n
 Use the arrow keys to move the cursor.\n\
 Press Enter to execute the highlighted option.\n" 17 50 7\
- "1" "Install Nightscout phase 1 - 15 minutes"\
- "2" "Install Nightscout phase 2 - 5 minutes"\
+ "1" "Install Nightscout phase 1 - 30 minutes"\
+ "2" "Install Nightscout phase 2 - 10 minutes"\
  "3" "Update platform"\
  "4" "Bootstrap the stable release"\
  "5" "Bootstrap the dev. release (advanced)"\
