@@ -114,7 +114,7 @@ fi
 
 # Node
 node="$(node -v)"
-if [ ! "${node%%.*}" = "v16" ] # If node version is any other than v16
+if [ ! "${node%%.*}" = "v22" ] # If node version is any other than v16
 then
 node="\Zb\Z1$(node -v)\Zn" 
 fi
@@ -219,7 +219,7 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Google Cloud Nightscout  2026.02.21\n\
+Google Cloud Nightscout  2026.03.03\n\
 $apisec_problem $Missing $Phase1 $rclocal_1 $freedns_id_pass \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
