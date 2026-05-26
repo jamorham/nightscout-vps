@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo
-echo "Install packages after the installation of Nightscout. - Navid200"
+echo "Install additional required packages. - Navid200"
 echo
 
 # Let's upgrade packages if available and install the missing needed packages.
