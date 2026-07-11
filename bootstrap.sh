@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-# curl https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/SmallWindowWarning_Test/bootstrap.sh | bash
+# curl https://raw.githubusercontent.com/Navid200/cgm-remote-monitor/MongoDriverVersionCheck_Test/bootstrap.sh | bash -s -- Navid200/cgm-remote-monitor MongoDriverVersionCheck_Test
 
 if [[ "$CLOUD_SHELL" = true ]]; then
   echo "You cannot run this script in Cloud Shell."
@@ -11,6 +11,39 @@ fi
 echo 
 echo "Bootstrapping the installation files - JamOrHam - Navid200"
 echo
+
+# --- GIT CONFIGURATION LOGIC ---
+# Hardcoded defaults (Standard Production)
+REPO_PATH="jamorham/nightscout-vps"
+GIT_BRANCH="vps-2"
+
+# 1. Handle "dev" shortcut
+if [ "$1" = "dev" ]; then
+  GIT_BRANCH="vps-dev"
+
+# 2. Handle Custom Repository
+elif [ ! -z "$1" ]; then
+  # If they provided a repo but NO branch ($2 is empty)
+  if [ -z "$2" ]; then
+    echo
+    echo "ERROR: Missing branch name."
+    echo "When using a custom repository, you must specify which branch to install."
+    echo
+    echo "Usage: ... | bash -s -- [username/repo] [branch-name]"
+    echo "Example: ... | bash -s -- some-developer/nightscout-vps my-test-branch"
+    echo
+    exit 1
+  fi
+  
+  # Both repo and branch were provided
+  REPO_PATH="$1"
+  GIT_BRANCH="$2"
+fi
+
+GIT_URL="https://github.com/${REPO_PATH}.git"
+
+echo "Installing from: $GIT_URL"
+echo "Using branch:    $GIT_BRANCH"
 
 # We run bootstrap as the first step of a fresh install.  But, we also run bootstrap on a complete system in order to switch repositories, or branches.
 # Running bootstrap on a complete system is destructive.  It deletes the contents of the /srv directory, some of which are written by Install Nightscout phase 1.
@@ -102,17 +135,17 @@ sudo rm -rf *
 echo
 echo "     Please be patient."
 echo
-sudo git clone https://github.com/jamorham/nightscout-vps.git  # ✅✅✅✅✅ Main - Uncomment before PR.
-#sudo git clone https://github.com/Navid200/cgm-remote-monitor.git  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
+
+# Clone the repository
+sudo git clone "$GIT_URL"
 
 ls > /tmp/repo
 sudo mv -f /tmp/repo .    # The repository name is now in /srv/repo
 cd "$(< repo)"
-sudo git checkout vps-dev  # ✅✅✅✅✅ Main - Uncomment before PR.
-#sudo git checkout SmallWindowWarning_Test  # ⛔⛔⛔⛔⛔ For test - Comment out before PR.
 
-sudo git branch > /tmp/branch
-grep "*" /tmp/branch | awk '{print $2}' > /tmp/brnch
+sudo git checkout "$GIT_BRANCH"
+
+echo "$GIT_BRANCH" > /tmp/brnch
 sudo mv -f /tmp/brnch ../.  # The branch name is now in /srv/brnch
 
 sudo git remote -v > /tmp/username
