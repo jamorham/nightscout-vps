@@ -64,7 +64,33 @@ then
 http="\Zb\Z1Closed\Zn" # Set color to red if the Firewall is not set.
 fi
 
-mongo="$(mongod --version | awk '/db version/ {print $NF}')"
+#Mongo server
+mongo="$(mongod --version | awk '/db version/ {print $NF}' | sed 's/v//')"
+
+#Mongo driver
+START_SCRIPT="/etc/nightscout-start.sh"
+REPO_FILE="/srv/repo"
+
+# Determine the active directory
+if [ -f "$START_SCRIPT" ]; then
+    # File exists
+    RAW_PATH=$(grep -m 1 "^cd " "$START_SCRIPT" | awk '{print $2}' | sed 's/"//g')
+    
+    if [ "$RAW_PATH" = "/srv" ]; then
+        # Standard installation
+        ACTIVE_DIR="/srv/$(cat $REPO_FILE 2>/dev/null)"
+    else
+        # Custom installation
+        ACTIVE_DIR="$RAW_PATH"
+    fi
+else
+    # File doesn't exist yet: Default to the official location
+    ACTIVE_DIR="/srv/$(cat $REPO_FILE 2>/dev/null)"
+fi
+
+# Get the Mongo driver version
+MONGO_DRIVER_JSON="$ACTIVE_DIR/node_modules/mongodb/package.json"
+mongodrv=$(jq -r .version "$MONGO_DRIVER_JSON" 2>/dev/null)
 
 ns="$(ps -ef | grep SCREEN | grep root | awk '{print $2, "  ", $5}')"
 
@@ -221,13 +247,13 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Google Cloud Nightscout  2026.05.23\n\
+Google Cloud Nightscout  2026.07.11\n\
 $apisec_problem $Missing $Phase1 $rclocal_1 $freedns_id_pass \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
 Ubuntu update: $LastReboot \n\
 Node: $node \n\
-Mongo: $mongo \n\
+Mongo Srv/Drv: $mongo / $mongodrv \n\
 NS proc: $ns \n\
 FreeDNS name and IP: $FD \n\
 Certificate: $cert \
