@@ -13,7 +13,7 @@ sudo apt-get update
 
 #Ubuntu upgrade available
 NextUbuntu="$(apt-get -s upgrade | grep 'Inst base' | awk '{print $4}' | sed 's/(//')"
-if [ "$NextUbuntu" = "13ubuntu10.4" ] # Only upgrade if we have tested the next release (24.04.4)
+if [ "$NextUbuntu" = "13ubuntu10.5" ] # Only upgrade if we have tested the next release (24.04.5)
 then
   sudo apt-get -y upgrade
 fi
