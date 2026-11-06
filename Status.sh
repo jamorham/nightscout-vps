@@ -55,7 +55,7 @@ if [ ! "$(which tbl)" = "" ]; then
     ubuntu="\Zb\Z1${ubuntu_raw} (NOT MINIMAL)\Zn"
 elif [ ! "$ubuntu_raw" = "24.04.5 LTS" ]; then
     if [ "$base_version" = "24.04" ]; then
-        # Same major release base, but a newer minor subversion (e.g. 24.04.6) -> Orange (\Z3)
+        # Same major release base, but a newer minor subversion (e.g. 24.04.6) -> Yellow (\Z3)
         ubuntu="\Zb\Z3${ubuntu_raw}\Zn"
     else
         # Sneaked in an entirely wrong OS version (e.g. 26.04 or 28.04 upgrade) -> Red (\Z1)
