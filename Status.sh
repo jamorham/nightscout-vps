@@ -45,11 +45,22 @@ fi
 #Swap file
 swap="$(free -h | sed -n 3p | awk '{print $2}')"
 
-#Ubuntu version
-ubuntu="$(lsb_release -a | sed -n 2p | awk '{print $3, $4}')"
-if [ ! "$ubuntu" = "24.04.5 LTS" ]
-then
-ubuntu="\Zb\Z1$(lsb_release -a | sed -n 2p | awk '{print $3, $4}')\Zn"
+# Ubuntu version
+ubuntu_raw="$(lsb_release -a | sed -n 2p | awk '{print $3, $4}')"
+ubuntu="$ubuntu_raw"
+base_version=$(echo "$ubuntu_raw" | grep -oE '^[0-9]+\.[0-9]+')
+
+if [ ! "$(which tbl)" = "" ]; then
+    # Caught a full/non-minimal environment forced onto the machine -> Red (\Z1)
+    ubuntu="\Zb\Z1${ubuntu_raw} (NOT MINIMAL)\Zn"
+elif [ ! "$ubuntu_raw" = "24.04.5 LTS" ]; then
+    if [ "$base_version" = "24.04" ]; then
+        # Same major release base, but a newer minor subversion (e.g. 24.04.6) -> Orange (\Z3)
+        ubuntu="\Zb\Z3${ubuntu_raw}\Zn"
+    else
+        # Sneaked in an entirely wrong OS version (e.g. 26.04 or 28.04 upgrade) -> Red (\Z1)
+        ubuntu="\Zb\Z1${ubuntu_raw}\Zn"
+    fi
 fi
 
 #Firewall
@@ -247,7 +258,7 @@ Disk size: $disksz        $DiskUsedPercent used \n\
 Ubuntu: $ubuntu \n\
 HTTP & HTTPS:  $http \n\
 ------------------------------------------ \n\
-Google Cloud Nightscout  2026.10.21\n\
+Google Cloud Nightscout  2026.11.05\n\
 $apisec_problem $Missing $Phase1 $rclocal_1 $freedns_id_pass \n\n\
 /$uname/$repo/$branch\n\
 Swap: $swap \n\
